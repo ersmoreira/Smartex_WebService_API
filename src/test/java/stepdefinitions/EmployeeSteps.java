@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmployeeSteps {
+    private String globalEndpoint="http://dummy.restapiexample.com/";
     private Response response;
     private int employeeId;
     private Map<String, String> employeeDetails;
@@ -26,16 +27,18 @@ public class EmployeeSteps {
     }
 
     @When("I send a POST request to {string}")
+
     public void iSendPOSTRequest(String endpoint) {
         RequestSpecification request = RestAssured.given()
                                                   .contentType(ContentType.JSON)
                                                   .body(employeeDetails);
 
-        response = request.post(endpoint);
+        response = request.post(globalEndpoint.concat(endpoint));
     }
 
     @Then("the response status code should be {int}")
     public void theResponseStatusCodeShouldBe(int expectedStatusCode) {
+        System.out.println(response.toString());
         Assert.assertEquals(expectedStatusCode, response.getStatusCode());
     }
 
@@ -53,7 +56,7 @@ public class EmployeeSteps {
 
     @When("I send a GET request to {string}")
     public void iSendGETRequest(String endpoint) {
-        response = RestAssured.get(endpoint.replace("{id}", String.valueOf(employeeId)));
+        response = RestAssured.get(globalEndpoint.concat(endpoint).replace("{id}", String.valueOf(employeeId)));
     }
 
     @Then("the employee details should match the created employee")
@@ -67,7 +70,7 @@ public class EmployeeSteps {
 
     @When("I send a DELETE request to {string}")
     public void iSendDELETERequest(String endpoint) {
-        response = RestAssured.delete(endpoint.replace("{id}", String.valueOf(employeeId)));
+        response = RestAssured.delete(globalEndpoint.concat(endpoint).replace("{id}", String.valueOf(employeeId)));
     }
 
     @Then("the employee should be deleted successfully")

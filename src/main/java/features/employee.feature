@@ -5,6 +5,7 @@ Feature: Employee API Testing
     When I send a POST request to "/api/v1/create"
     Then the response status code should be 200
 
+
   Scenario: Validate if the employee was created correctly
     Given I have the employee ID
     When I send a GET request to "/api/v1/employee/{id}"
