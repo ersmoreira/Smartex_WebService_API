@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmployeeSteps {
-    private String globalEndpoint="http://dummy.restapiexample.com/";
+    private String globalEndpoint="https://dummy.restapiexample.com/";
     private Response response;
     private int employeeId;
     private Map<String, String> employeeDetails;
@@ -38,7 +38,6 @@ public class EmployeeSteps {
 
     @Then("the response status code should be {int}")
     public void theResponseStatusCodeShouldBe(int expectedStatusCode) {
-        System.out.println(response.toString());
         Assert.assertEquals(expectedStatusCode, response.getStatusCode());
     }
 
